@@ -19,7 +19,7 @@ You can also:
   - Change light's color
  
 In future versions:
-    - *loading GLTF and OBJ objects directly into the scene*
-    - *more light types*
-    - *more basic shapes*
-    - scene customization
+  - *loading GLTF and OBJ objects directly into the scene*
+  - *more light types*
+  - *more basic shapes*
+  - *scene customization*
