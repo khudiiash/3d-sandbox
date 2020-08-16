@@ -1,0 +1,559 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+*{
+    box-sizing: border-box;
+    user-select: none;
+  }
+
+html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 16px;
+    background: black;
+}
+#scene {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+#depth {
+    position: relative;
+    top: -190px;
+    left: 75px;
+    width: 50%;
+    height: 40px;
+}
+#width {
+    width: 75px;
+    height: 40px;
+    position: relative;
+    top: -70px;
+    
+}
+#height {
+    position: relative;
+    top: -190px;
+    right: 0;
+    width: 100%;
+    height: 80px;
+}
+
+#userActions {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 20px;
+    font-family: sans-serif;
+    padding: 20px;
+  }
+#svg-object {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.sizer-buttons {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    top: -170px;
+    font-size: 10px;
+    text-align: left;
+}
+
+#add-panel {
+    z-index: 50;
+    height: 530px;
+    width: 5vw;
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    perspective: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    #color-paint {
+            border: none;
+            background: black;
+            width: 42px;
+            height: 42px;
+            margin: 2px;
+            text-transform: uppercase;
+            font-size: 10px;
+            color: white;
+            margin-left: 5px;
+            margin-top: -60px;
+            border: 1px solid #2d2d2d;
+            border-radius: 100%;
+            z-index: 1;
+            opacity: 0;
+            position: relative;
+            
+
+    }
+    #texture-clear {
+        background: black;
+        width: 26px;
+        height: 26px;
+        margin: 2px;
+        font-size: 15px;
+        color: white;
+        margin-left: 5px;
+        border: 1px solid #2d2d2d;
+        border-radius: 100%;
+        position: relative;
+        top: -58px;
+        z-index: 1;
+        
+        }
+    #texture-label {
+        color: white;
+        font-size: 10px;
+        position: relative;
+        top: -72px;
+        text-align: center;
+        opacity: 0;
+        z-index: 1;
+
+    }
+    #texture-picker {
+        overflow: hidden;
+        width: 50px;
+        height: 50px;
+        position: relative;
+        z-index: 2;
+        cursor: pointer;
+        
+
+        input {
+           opacity: 0;
+           height: 100%;
+           background: radial-gradient(at 10px 10px, white, rgba(0,0,0,.5));
+           
+        }
+
+        #texture-preview {
+            width: 50px;
+            height: 100%;
+            background: white;
+            border-radius: 100%;
+            img {
+                height: 90%;
+                border-radius: 100%;
+                width: 90%;
+                position: relative;
+                left: 5%;
+                top: -95%;
+                pointer-events: none;
+            }
+            #texture-cover {
+                position: absolute;
+                height: 90%;
+                border-radius: 100%;
+                width: 90%;
+                left: 3px;
+                background: radial-gradient(at 10px 10px, white, rgba(0,0,0,.5));
+                top: 3px;
+                pointer-events: none;
+
+            }
+        }
+    }
+    .cube {
+        display: block;
+        width: 40px;
+        top: 0;
+        left: 0;
+        height: 40px;
+        position: relative;
+        transform-style: preserve-3d;
+        transform: rotate(15deg);
+        animation: rotate 120s infinite linear;
+    }
+
+    .cube:before,
+    .cube:after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    }
+    .cube:before {
+        transform: rotateX(90deg);  
+        }
+    .cube:after {
+        transform: rotatey(90deg);  
+        }
+
+    .side {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    opacity: .7;
+    }
+
+    .back {
+    transform: translateZ(-20px);
+    background: radial-gradient(circle at 10px 10px, white, rgba(0,0,0,.5));
+    }
+
+    .left {
+    transform: translateX(-20px) rotateY(90deg);
+    background: radial-gradient(circle at 10px 10px, white, rgba(0,0,0,.5));
+    }
+
+    .right {
+    transform: translateX(20px) rotateY(90deg);
+    background: radial-gradient(circle at 10px 10px, white, rgba(0,0,0,.5));
+    }
+    .top {
+    transform: translateY(-20px) rotateX(90deg);
+    background: radial-gradient(circle at 10px 10px, white, rgba(0,0,0,.5));
+    }
+
+    .bottom {
+    transform: translateY(20px) rotateX(90deg);
+    background: radial-gradient(circle at 10px 10px, white, rgba(0,0,0,.5));
+    }
+
+    .front {
+    transform: translateZ(20px);
+    background: radial-gradient(circle at 10px 10px, white, rgba(0,0,0,.5));
+    }
+    .sphere {
+        display: block;
+        position: relative;
+        background: red;
+        border-radius: 100%;
+        height: 50px;
+        width: 50px;
+        top: 5px;
+        margin: 0;
+        background: radial-gradient(circle at 10px 10px, white, rgba(0,0,0,.5));
+        transform: rotate(15deg);
+        animation: rotateCircle 20s infinite linear;
+      }
+    
+      .cylinder {
+        position: relative;
+        margin: 0 auto;
+        width: 50px;
+        height: 65px;
+        top: 5px;
+        border-radius: 50px/25px;
+        background: radial-gradient(circle at 10px 10px, white, rgba(0,0,0,.5));
+        animation: rotateCylinder 20s infinite linear;
+
+    }
+    
+    .cylinder:before {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 50px;
+        height: 25px;
+        border-radius: 50px/25px;
+        background:radial-gradient(circle at 10px 10px, rgba(255,255,255,.5), rgba(0,0,0,.3));
+        content: '';
+    }
+    
+    .cylinder:after {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 50px;
+        opacity: 0;
+        height: 25px;
+        border-radius: 50px/25px;
+        background: radial-gradient(circle at 10px 10px, rgba(0,0,0,.2), white);
+        content: '';
+    }
+    #light {
+        width: 150px;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        svg {
+            height: 100%;
+            fill: white;
+        }
+    }
+
+    #color {
+        -webkit-appearance: none;
+        border: none;
+        background: #fff;
+        width: 50px;
+        height: 50px;
+        border-radius: 100%;
+        overflow: hidden;
+        outline: none;
+        cursor: inherit;
+        position: relative;
+        z-index: 2;
+    }
+    #link {
+        width: 50px;
+        height: 50px;
+        background: #333;
+        position: relative;
+        top: -40px;
+        left: .5%;
+        border-radius: 50%;
+        border: 2px solid white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        svg {
+            width: 25px;
+            height: 25px;
+            fill: white;
+        }
+    }
+    
+
+}
+#objectcontrol {
+    height: 150px;
+    width: 150px;
+    position: absolute;
+    top: 0;
+    right: 3%;
+    font-size: 14px;
+    color: rgba(255,255,255,.5);
+    #spacer {
+        display: inline-block;
+        width: 7px;
+    }
+    .clear {
+        font-size: 15px;
+    }
+    #width-control {
+        background: white;
+    }
+
+}
+.button {
+    border: none;
+    background: black;
+    width: 26px;
+    height: 26px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2px;
+    font-size: 19px;
+    color: white;
+    margin-left: 5px;
+    border: 1px solid #2d2d2d;
+    border-radius: 100%;
+}
+label {
+    display: inline-block;
+    position: relative;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    overflow: hidden;
+  }
+  
+  input[type="color"] {
+    -webkit-appearance: none;
+    border: none;
+    background: #000;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    overflow: hidden;
+    outline: none;
+    cursor: inherit;
+  }
+  
+  .circle {
+
+    width: 50px;
+    height: 50px;
+    background-color: black;
+    border-radius: 100%;
+    cursor: inherit;
+  }
+  
+  /* -webkit */
+  input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;    
+  }
+  
+  input[type="color"]::-webkit-color-swatch {
+    border: none;  
+    border-radius: 100%;
+  }
+  
+  
+  /* firefox */
+  input[type=color]::-moz-focus-inner {
+    border: none;
+    padding: 0;
+    border-radius: 100%;
+  }
+  
+  input[type=color]::-moz-color-swatch {
+    border: none;
+    border-radius: 100%;
+    height: 40px;
+  }
+
+  #background {
+      pointer-events: none !important;
+      display: none;
+  }
+
+  button:focus {
+    border: none;
+    outline: 0;
+  }
+  #formula {
+    position: absolute;
+    left: 50%;
+    bottom: 10%;
+    font-size: 12px;
+    color: white;
+    left: 47%;
+    bottom: 5%;
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    sup {
+        font-size: 8px;
+    }
+  }
+  #run-physics {
+      border: 2px dotted white;
+      border-radius: 100%;
+      color: white;
+      position: absolute;
+      left: 47%;
+      bottom: 5%;
+      width: 50px;
+      height: 50px;
+      font-size: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      div {
+        border: 2px dotted #dddd;
+        border-radius: 100%;
+        width: 70px;
+        height: 70px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        animation: rotateCircle 55s linear infinite;
+
+      }
+      #outer {
+        width: 60px;
+        height: 60px;
+        border: 2px dotted goldenrod;
+        animation: rotateCircle 55s linear infinite;
+        
+      }
+      
+  }
+@keyframes rotate {
+    0% {
+        -webkit-transform: rotatex(360deg) rotateY(360deg) rotateZ(360deg);
+
+        transform: rotatex(360deg) rotateY(360deg) rotateZ(360deg);
+    }
+    50% {
+        -webkit-transform: rotatex(0) rotateY(0) rotateZ(0);
+        transform: rotatex(0) rotateY(0) rotateZ(0);
+
+    }
+    100% {
+        -webkit-transform: rotatex(-360deg) rotateY(-360deg) rotateZ(-360deg);
+        transform: rotatex(-360deg) rotateY(-360deg) rotateZ(-360deg);
+      }
+  }
+  @keyframes rotateCircle {
+    0% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+    50% {
+        -webkit-transform: rotate(0);
+        transform: rotate(0);
+
+    }
+    100% {
+        -webkit-transform: rotate(0);
+        transform: rotate(-360deg);
+      }
+  }
+  @keyframes rotateCylinder {
+    0% {
+        -webkit-transform: rotate(-30deg);
+        transform: rotate(-30deg);
+    }
+    25% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    50% {
+        -webkit-transform: rotate(30%);
+        transform: rotate(30%);
+
+    }
+    75% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+    100% {
+        -webkit-transform: rotate(-30deg);
+        transform: rotate(-30deg);
+      }
+
+  }
+
+@media screen and (max-width: 700px)  {
+    .cylinder {
+        left: -10px;
+    }
+    .sizer-buttons {
+        text-align: right;
+        flex-direction: column;
+        left: 110px;
+        top: -190px;
+        width: 10%;
+        right: 0;
+    }
+    #svg-container {
+        transform-origin: top right;
+        -webkit-transform: scale(.6);
+        transform: scale(.8);
+    }
+    #formula, #run-physics {
+        left: 43%;
+    }
+    #add-panel {
+        -webkit-transform: scale(.7);
+        transform: scale(.7);
+        transform-origin: left top;
+    }
+
+}

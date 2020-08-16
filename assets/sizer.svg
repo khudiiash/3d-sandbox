@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="120.382" height="119" viewBox="0 0 120.382 119">
+  <defs>
+    <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.614" gradientTransform="matrix(0.998, 0.068, -0.068, 0.998, 0.035, -0.033)" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#898989"/>
+      <stop offset="0.32" stop-color="#717171"/>
+      <stop offset="0.744"/>
+      <stop offset="1"/>
+    </radialGradient>
+  </defs>
+  <g id="passive" transform="translate(-675.618 -160)">
+    <circle id="background" cx="53.5" cy="53.5" r="53.5" transform="translate(681 171)" opacity="0.283" fill="url(#radial-gradient)"/>
+    <line id="lineH" y2="60" transform="translate(735.5 164.5)" fill="none" stroke="#fff" stroke-width="1"/>
+    <line id="lineD" x2="50" y2="25" transform="translate(735.5 224.5)" fill="none" stroke="#fff" stroke-width="1"/>
+    <line id="lineW" x1="55" y2="25" transform="translate(680.5 224.5)" fill="none" stroke="#fff" stroke-width="1"/>
+    <text id="WIDTH" transform="translate(678.872 247.216) rotate(-24)" fill="#707070" font-size="8" font-family="HelveticaNeue, Helvetica Neue" opacity="0.53"><tspan x="0" y="0">WIDTH</tspan></text>
+    <text id="DEPTH_" data-name="DEPTH
+" transform="translate(764.465 235.102) rotate(28)" fill="#707070" font-size="8" font-family="HelveticaNeue, Helvetica Neue" opacity="0.53"><tspan x="0" y="0">DEPTH</tspan><tspan x="0" y="10"></tspan></text>
+    <text id="HEIGHT" transform="translate(744.004 193.971) rotate(-90)" fill="#707070" font-size="8" font-family="HelveticaNeue, Helvetica Neue" opacity="0.53"><tspan x="0" y="0">HEIGHT</tspan></text>
+    <rect id="height-2" data-name="height" width="120" height="65" transform="translate(676 160)" fill="none" opacity="0.435"/>
+    <rect id="width-2" data-name="width" width="60" height="54" transform="translate(676 224)" fill="none" opacity="0.52"/>
+    <rect id="depth" width="60" height="54" transform="translate(736 225)" fill="none" opacity="0.52"/>
+  </g>
+</svg>
