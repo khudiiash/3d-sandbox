@@ -238,10 +238,11 @@ function ThreeManager(canvas) {
     const normalize = () => {
         let position = this.object.position
         let newObject, oldObject = this.object;
+        let oldMat = oldObject.material
         if (!this.object.isBase && !this.object.light) {
             let { type } = this.object
             oldColor = oldObject.material.color
-            newObject = type === 'cube' ? this.cube(1, 1, 1, oldColor) : type === 'sphere' ? this.sphere(.5, 32, 32, oldColor) : this.cylinder(.5, 1, oldColor)
+            newObject = type === 'cube' ? this.cube(1, 1, 1, oldColor, oldMat) : type === 'sphere' ? this.sphere(.5, 32, 32, oldColor, oldMat) : this.cylinder(.5, 1, oldColor, oldMat)
             this.add(newObject)
             newObject.position.set(position.x, position.y, position.z)
             oldObject.position.set(999, 999, 999)
@@ -614,7 +615,7 @@ function ThreeManager(canvas) {
 
     // Primitives
 
-    this.cube = function (w, h, d, c) {
+    this.cube = function (w, h, d, c, om) {
         if (!w) {
             w = baseSize.w
             h = baseSize.h
@@ -623,7 +624,7 @@ function ThreeManager(canvas) {
         }
         if (typeof c === 'string') c = new THREE.Color(c).convertSRGBToLinear()
         let g = roundness ? createBoxWithRoundedEdges(w, h, d, roundness || 0, 10) : new THREE.BoxGeometry(w, h, d)
-        let m = new THREE.MeshStandardMaterial({
+        let m = om ? om : new THREE.MeshStandardMaterial({
             roughness: 0.5,
             color: c,
             metalness: 0.2,
@@ -652,7 +653,7 @@ function ThreeManager(canvas) {
         return cube
 
     }
-    this.cylinder = function (r, h, c) {
+    this.cylinder = function (r, h, c, om) {
         if (!r) {
             r = .5
             h = baseSize.h
@@ -660,7 +661,7 @@ function ThreeManager(canvas) {
         }
         if (typeof c === 'string') c = new THREE.Color(c).convertSRGBToLinear()
         let g = new THREE.CylinderGeometry(r, r, h, 32)
-        let m = new THREE.MeshStandardMaterial({
+        let m = om ? om : new THREE.MeshStandardMaterial({
             roughness: 0.5,
             color: c,
             metalness: 0.2,
@@ -723,7 +724,7 @@ function ThreeManager(canvas) {
         setShadow(cone)
         return cone;
     }
-    this.sphere = function (r, w, h, c) {
+    this.sphere = function (r, w, h, c, om) {
         if (!r) {
             r = .5,
                 w = 32,
@@ -733,7 +734,7 @@ function ThreeManager(canvas) {
         if (typeof c === 'string') c = new THREE.Color(c).convertSRGBToLinear()
 
         let g = new THREE.SphereGeometry(r, w, h)
-        let m = new THREE.MeshStandardMaterial({
+        let m = om ? om : new THREE.MeshStandardMaterial({
             roughness: 0.8,
             color: c,
             metalness: 0.2,
