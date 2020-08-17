@@ -110,13 +110,22 @@ html, body {
           align-items: center;
 }
 
-#add-panel #color-paint {
+#add-panel #color-paint, #add-panel #texture-paint {
   border: none;
   background: black;
   width: 42px;
   height: 42px;
   margin: 2px;
   text-transform: uppercase;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   font-size: 10px;
   color: white;
   margin-left: 5px;
@@ -128,6 +137,14 @@ html, body {
   position: relative;
 }
 
+#add-panel #texture-paint {
+  margin-left: 5px;
+  margin-top: -70px;
+  top: -65px;
+  z-index: 1;
+  opacity: 0;
+}
+
 #add-panel #texture-clear {
   background: black;
   width: 26px;
@@ -135,11 +152,11 @@ html, body {
   margin: 2px;
   font-size: 15px;
   color: white;
-  margin-left: 5px;
   border: 1px solid #2d2d2d;
   border-radius: 100%;
   position: relative;
-  top: -58px;
+  top: -52px;
+  left: -10px;
   z-index: 1;
 }
 
@@ -176,23 +193,23 @@ html, body {
 }
 
 #add-panel #texture-picker #texture-preview img {
-  height: 90%;
+  height: 46px;
   border-radius: 100%;
-  width: 90%;
+  width: 46px;
   position: relative;
-  left: 5%;
-  top: -95%;
+  left: 2px;
+  top: -48px;
   pointer-events: none;
 }
 
 #add-panel #texture-picker #texture-preview #texture-cover {
   position: absolute;
-  height: 90%;
+  height: 46px;
   border-radius: 100%;
-  width: 90%;
-  left: 3px;
+  width: 46px;
+  left: 2px;
   background: radial-gradient(at 10px 10px, white, rgba(0, 0, 0, 0.5));
-  top: 3px;
+  top: 2px;
   pointer-events: none;
 }
 

@@ -128,6 +128,26 @@ function ThreeManager(canvas) {
                 else this.object.children[0].color = new THREE.Color(this.baseColor)
 
             }
+            if (this.paintModeTexture) {
+                if (this.object && this.baseTexture && !this.object.light)
+                    this.object.material = new THREE.MeshPhongMaterial({
+                        map: this.baseTexture,
+                        transparent: true,
+                        opacity: 1,
+                        roughness: 1,
+                        metalness: 0,
+                        color: new THREE.Color(color)
+                    })
+                else if (this.object && !this.texture && !this.object.light) {
+                    this.object.material = new THREE.MeshStandardMaterial({
+                        roughness: 0.8,
+                        metalness: 0.2,
+                        transparent: true,
+                        opacity: 1,
+                        color: new THREE.Color(this.baseColor).convertSRGBToLinear()
+                    })
+                }
+            }
             if (o.light) {
                 let PointLight = o.children[0]
 
@@ -221,7 +241,6 @@ function ThreeManager(canvas) {
         if (!this.object.isBase && !this.object.light) {
             let { type } = this.object
             oldColor = oldObject.material.color
-            console.log(oldColor)
             newObject = type === 'cube' ? this.cube(1, 1, 1, oldColor) : type === 'sphere' ? this.sphere(.5, 32, 32, oldColor) : this.cylinder(.5, 1, oldColor)
             this.add(newObject)
             newObject.position.set(position.x, position.y, position.z)
@@ -602,6 +621,7 @@ function ThreeManager(canvas) {
             d = baseSize.d,
                 c = new THREE.Color(this.baseColor).convertSRGBToLinear()
         }
+        if (typeof c === 'string') c = new THREE.Color(c).convertSRGBToLinear()
         let g = roundness ? createBoxWithRoundedEdges(w, h, d, roundness || 0, 10) : new THREE.BoxGeometry(w, h, d)
         let m = new THREE.MeshStandardMaterial({
             roughness: 0.5,
@@ -638,7 +658,7 @@ function ThreeManager(canvas) {
             h = baseSize.h
             c = new THREE.Color(this.baseColor).convertSRGBToLinear()
         }
-        console.log(c)
+        if (typeof c === 'string') c = new THREE.Color(c).convertSRGBToLinear()
         let g = new THREE.CylinderGeometry(r, r, h, 32)
         let m = new THREE.MeshStandardMaterial({
             roughness: 0.5,
@@ -710,6 +730,8 @@ function ThreeManager(canvas) {
                 h = 32,
                 c = new THREE.Color(this.baseColor).convertSRGBToLinear()
         }
+        if (typeof c === 'string') c = new THREE.Color(c).convertSRGBToLinear()
+
         let g = new THREE.SphereGeometry(r, w, h)
         let m = new THREE.MeshStandardMaterial({
             roughness: 0.8,

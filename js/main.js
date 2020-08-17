@@ -10,7 +10,7 @@ function bindEventListeners() {
 	window.onresize = resizeCanvas;
 	resizeCanvas();
 
-	let buttons = document.querySelectorAll('.button:not(#color-paint)')
+	let buttons = document.querySelectorAll('.button:not(#color-paint):not(#texture-paint)')
 	for (let b of buttons) {
 		b.addEventListener('mousedown', function () {
 			gsap.to(this, .1, { backgroundColor: '#fff' });
@@ -35,10 +35,13 @@ function bindEventListeners() {
 	let input = document.querySelector('#texture-input')
 	input.addEventListener('mouseleave', () => {
 		hideTextureClear()
+		hidePaint(texturePaint)
 		gsap.to('#texture-label', .3, { y: 0, opacity: 0 })
 	})
 	input.addEventListener('mouseenter', () => {
-		gsap.to('#texture-clear', .3, { x: 40 })
+		gsap.to('#texture-clear', .3, { x: 60, y: 30, opacity: 1 })
+		gsap.to('#texture-paint', .3, { x: 40, opacity: 1 })
+
 		gsap.to('#texture-label', .3, { y: 20, opacity: .7 })
 
 	})
@@ -48,7 +51,7 @@ function bindEventListeners() {
 
 	})
 	cp.addEventListener('mouseleave', () => {
-		hidePaint()
+		hidePaint(cp)
 	})
 
 	let physics = document.querySelector('#run-physics')
@@ -66,20 +69,25 @@ function bindEventListeners() {
 
 	let textureClear = document.querySelector('#texture-clear')
 	let paint = document.querySelector('#color-paint')
+	let texturePaint = document.querySelector('#texture-paint')
+
 	textureClear.addEventListener('click', three.clearTexture)
 
 	function hideTextureClear() {
-		gsap.delayedCall(.3, () => { if (!textureClear.mouseOver) gsap.to(textureClear, .3, { x: 0 }) })
+		gsap.delayedCall(.5, () => { if (!textureClear.mouseOver) gsap.to(textureClear, .3, { x: 0, y: 0, opacity: 0 }) })
 	}
-	function hidePaint() {
-		gsap.delayedCall(.3, () => { if (!paint.mouseOver) gsap.to(paint, .3, { x: 0 }) })
+	function hidePaint(el) {
+		gsap.delayedCall(.3, () => { if (!el.mouseOver) gsap.to(el, .4, { x: 0, y: 0 }) })
 	}
 
 	textureClear.addEventListener('mouseenter', function () { this.mouseOver = true })
 	textureClear.addEventListener('mouseleave', function () { this.mouseOver = false, hideTextureClear() })
 	paint.addEventListener('mouseenter', function () { this.mouseOver = true })
-	paint.addEventListener('mouseleave', function () { this.mouseOver = false, hidePaint() })
-	paint.addEventListener('click', paintMode)
+	paint.addEventListener('mouseleave', function () { this.mouseOver = false, hidePaint(paint) })
+	paint.addEventListener('click', () => paintMode('#color-paint'))
+	texturePaint.addEventListener('mouseenter', function () { this.mouseOver = true })
+	texturePaint.addEventListener('mouseleave', function () { this.mouseOver = false, hidePaint(texturePaint) })
+	texturePaint.addEventListener('click', () => paintMode('#texture-paint'))
 	document.querySelector('#link').addEventListener('click', linkingMode)
 
 
@@ -136,17 +144,34 @@ function linkingMode() {
 		document.querySelector('#link').style.backgroundColor = '#333'
 	}
 }
-function paintMode() {
-	if (!three.paintMode) {
-		three.paintMode = true;
-		document.querySelector('#color-paint').style.background = '#ffffff'
-		document.querySelector('#color-paint').style.color = '#000'
+function paintMode(el) {
+	if (el === '#texture-paint') {
+		if (!three.paintModeTexture) {
+			three.paintModeTexture = true;
+			document.querySelector(el).style.background = '#ffffff'
+			document.querySelector(el).style.color = '#000'
+		}
+		else {
+			three.paintModeTexture = false
+			document.querySelector(el).style.background = '#000'
+			document.querySelector(el).style.color = '#fff'
+		}
 	}
-	else {
-		three.paintMode = false
-		document.querySelector('#color-paint').style.background = '#000'
-		document.querySelector('#color-paint').style.color = '#fff'
+	if (el === '#color-paint') {
+		if (!three.paintMode) {
+			three.paintMode = true;
+			document.querySelector(el).style.background = '#ffffff'
+			document.querySelector(el).style.color = '#000'
+		}
+		else {
+			three.paintMode = false
+			document.querySelector(el).style.background = '#000'
+			document.querySelector(el).style.color = '#fff'
+		}
+
 	}
+
+
 }
 
 function handleColor() {
@@ -272,11 +297,11 @@ function clearRotationZ() {
 function addLight() {
 	if (three.lights.length < 2) {
 		three.createLight(700, three.baseColor)
-		gsap.to('#light', 1, {opacity: 1})
+		gsap.to('#light', 1, { opacity: 1 })
 	}
 	else if (three.lights.length === 2) {
 		three.createLight(700, three.baseColor)
-		gsap.to('#light', 1, {opacity: .3})
+		gsap.to('#light', 1, { opacity: .3 })
 	}
 }
 // Init
